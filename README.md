@@ -1,61 +1,23 @@
-# Learning Ladder — Software Engineering for the AI Era
+# AI Playground 
 
-**Purpose.** A single repo to grow durable skills in the right order:
-1) Databases & SQL → 2) Networking & APIs → 3) Distributed Systems → 4) Cloud & Ops → 5) Security & Privacy → 6) AI-native engineering → 7) Offline-first & CRDTs.
+This repo is a hands-on, modular implementation of state-of-the-art techniques in language model engineering and autonomous agent construction. I am exploring 
+and developing mini-projects, fine-tuning open-source models, prompt strategies, semantic search, and orchestrated agent workflows.
 
-**How this works**
-- Weekly cadence: 1 concept you can teach back, 1 micro-build (200–400 LOC), 1 short write-up (“Trade-offs I chose and why”).
-- Measure everything: p50/p95 latency, error rates, (if AI) cost per call. Keep tiny dashboards or logs per build.
-- Single source of truth: this repo. Subfolders per rung with READMEs and scripts.
 
-## Repo structure
-/db
-  /builds/…             # small projects for this rung
-  /notes.md             # concepts, gotchas, links
-  /checkpoints.md       # what’s done, what’s next
-/api
-/dist
-/ops
-/sec
-/ai
-/crdt
-README.md               # this file
+## Highlights
+- Fine-tune open-source LLMs via PEFT (LoRA, quantization, BitsAndBytes)  
+- Structured output generation with Pydantic for reliability and predictable parser-friendly responses  
+- Prompt engineering: zero-shot, few-shot, chain-of-thought — nail output consistency  
+- Retrieval-Augmented Generation pipelines using vector embeddings, semantic search, RAG frameworks  
+- Web components: interactive Gradio demos with source citations  
+- Agent frameworks: build autonomous workflows and multi-agent systems via AutoGen, LangGraph, n8n, MCP, CrewAI, etc.  
+- Practical app examples: intelligent resume editor, vision-enabled trackers, AI tutors, data-science assistants
 
-## Current rung: 1) Databases & SQL
-**Goals**
-- Model a real domain (classes ↔ registrations with waitlists, soft deletes, auditing).
-- Prevent invariants from breaking using constraints & transactions.
-- Make slow queries fast using the right indexes and query plans.
+## Tech Stack & Tools
 
-**Deliverables**
-- `/db/builds/classes/` containing:
-  - `schema.sql`, `migrations/`, `seed.sql`
-  - `queries.sql` (answers to defined questions)
-  - `explain.md` (before/after plans with notes)
-  - `tests/` (idempotency/double-booking checks)
-
-**Definition of done**
-- All core queries under target time on 10k–100k rows.
-- No double-booking possible (proved by constraints/tests).
-- README in the build folder explaining trade-offs.
-
-## Conventions
-- Prefer PostgreSQL (>=14) for SQL examples.
-- Keep migrations small and numbered. Never edit history.
-- Name indexes by intent: `idx_registrations_user_class_active`.
-- Avoid `SELECT *` in app code; list needed columns.
-
-## Cadence checklist (weekly)
-- [ ] One 5-minute “teach-back” note
-- [ ] One micro-build or refactor
-- [ ] Metrics captured (latency/error/cost)
-- [ ] Brief retrospective: bug or surprise + fix
-
-## Roadmap
-- 1) Databases ✅/🔜
-- 2) Networking (HTTP/gRPC, idempotency, webhooks)
-- 3) Distributed (queues/streams, Sagas)
-- 4) Cloud & Ops (CI/CD, observability, autoscale)
-- 5) Security & Privacy (OIDC, KMS, PII handling)
-- 6) AI-native (RAG, evals, safety)
-- 7) Offline-first & CRDTs (on-device DB, sync)
+- **Frameworks**: Hugging Face Transformers, PEFT, TRL, BitsAndBytes, ChromaDB/Qdrant, LangChain, LlamaIndex, AutoGen, LangGraph, n8n, MCP, CrewAI  
+  :contentReference[oaicite:1]{index=1}  
+- **Serving & UI**: Gradio for self-hosted interactive demos  
+- **Schemas & Validation**: Pydantic for structured outputs, robust error handling  
+- **Fine-tuning & Quantization**: LoRA, quantized models with BitsAndBytes, Hugging Face SFTTrainer  
+  :contentReference[oaicite:2]{index=2}  
