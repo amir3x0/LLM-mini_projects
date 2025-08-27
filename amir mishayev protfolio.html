@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Amir Mishayev — Full‑Stack Developer | Portfolio</title>
+<meta name="description" content="Portfolio of Amir Mishayev — Full‑Stack Developer. Projects, skills, experience, and contact details." />
+<style>
+  :root{
+    --bg:#0b1021;
+    --surface:#111936;
+    --muted:#9aa4c7;
+    --text:#e8ecff;
+    --primary:#6c7bff;     /* indigo/cornflower */
+    --secondary:#0ea5e9;   /* cyan */
+    --accent:#f59e0b;      /* amber */
+    --success:#22c55e;
+    --danger:#ef4444;
+    --card:#0e1530;
+    --ring: rgba(108,123,255,.45);
+    --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    --radius: 16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    color:var(--text);
+    background:
+      radial-gradient(1200px 800px at 85% -10%, rgba(108,123,255,.20), rgba(108,123,255,0) 50%),
+      radial-gradient(800px 600px at -10% 20%, rgba(14,165,233,.18), rgba(14,165,233,0) 50%),
+      linear-gradient(180deg, #0b1021 0%, #0a0f1f 100%);
+    letter-spacing:.2px;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* Layout */
+  .container{width: min(1160px, 92vw); margin: 0 auto;}
+  header{
+    position:sticky; top:0; z-index:50;
+    background: rgba(11,16,33,.6);
+    backdrop-filter: saturate(150%) blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 0;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.5px;
+    color:var(--text);
+  }
+  .brand .logo{
+    width:40px;height:40px;border-radius:12px;
+    display:grid;place-items:center;
+    background: linear-gradient(135deg, var(--primary), #7dd3fc);
+    box-shadow: var(--shadow);
+    font-weight:800;
+  }
+  .tagline{color:var(--muted); font-size:12px; margin-top:2px}
+  nav ul{list-style:none; display:flex; gap:20px; padding:0; margin:0}
+  nav a{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 12px; border-radius:10px; color:var(--muted); font-weight:600;
+  }
+  nav a:hover, nav a:focus{color:var(--text); background:rgba(255,255,255,.06); outline:none}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    background: linear-gradient(135deg, var(--primary), #7dd3fc);
+    color:#0a0f1f; padding:10px 14px; border-radius:12px; font-weight:800;
+    box-shadow: var(--shadow);
+  }
+  .cta:hover{transform: translateY(-1px);}
+
+  /* Hero */
+  .hero{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:40px;
+    padding: clamp(36px, 6vw, 70px) 0 40px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size: clamp(30px, 4.6vw, 56px);
+    line-height:1.05; margin:0 0 14px;
+    letter-spacing:.2px;
+  }
+  .hero p{color:var(--muted); font-size: clamp(15px, 1.6vw, 18px); margin: 0 0 22px;}
+  .hero .kpis{display:flex; gap:20px; flex-wrap:wrap; margin:22px 0}
+  .kpi{
+    padding:12px 14px; border-radius:12px; background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+    display:flex; align-items:center; gap:10px;
+  }
+  .kpi strong{font-size:18px}
+  .hero-visual{
+    position:relative; aspect-ratio: 4/3; border-radius:18px; overflow:hidden;
+    background: radial-gradient(90% 80% at 70% 20%, rgba(108,123,255,.25), transparent 60%),
+                linear-gradient(180deg, #0f1640, #0c1334);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow: var(--shadow);
+  }
+  .code{
+    position:absolute; inset:16px; border-radius:12px; padding:18px;
+    background: rgba(6,10,26,.85);
+    border: 1px solid rgba(255,255,255,.06);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    color:#e6f3ff; font-size:13px; line-height:1.6; overflow:auto;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+  .code .c1{color:#9aa4c7}
+  .code .kw{color:#7dd3fc}
+  .code .fn{color:#a5b4fc}
+  .code .str{color:#f7c97f}
+  .code .num{color:#86efac}
+  .glow{
+    position:absolute; inset:-30%; background:
+    radial-gradient(closest-side, rgba(124,58,237,.13), transparent 60%),
+    radial-gradient(closest-side, rgba(14,165,233,.12), transparent 60%);
+    filter: blur(40px); pointer-events:none;
+  }
+
+  /* Sections */
+  section{padding: 60px 0}
+  .section-title{
+    font-size: clamp(22px, 3.2vw, 36px);
+    margin:0 0 10px;
+  }
+  .section-lead{color:var(--muted); margin:0 0 26px}
+
+  /* Features / Skills */
+  .features{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;
+  }
+  .feature{
+    background: var(--card); border:1px solid rgba(255,255,255,.06);
+    border-radius:16px; padding:16px; box-shadow: var(--shadow);
+    display:flex; gap:12px; align-items:flex-start; min-height:100px;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .feature:hover{transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,.45)}
+  .icon{
+    flex:0 0 44px; height:44px; border-radius:12px; display:grid; place-items:center;
+    background: linear-gradient(135deg, rgba(108,123,255,.25), rgba(14,165,233,.2));
+    border:1px solid rgba(255,255,255,.09);
+  }
+  .feature h4{margin:0 0 6px}
+  .feature p{margin:0; color:var(--muted); font-size:14px}
+
+  /* Projects */
+  .projects{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
+  }
+  .project{
+    background: var(--card); border:1px solid rgba(255,255,255,.08);
+    border-radius:18px; overflow:hidden; display:flex; flex-direction:column; min-height: 320px;
+    box-shadow: var(--shadow);
+  }
+  .project .thumb{
+    height:160px; background:
+      radial-gradient(600px 200px at 80% 10%, rgba(108,123,255,.3), transparent 60%),
+      linear-gradient(180deg, #0e1638, #0b122f);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    position:relative;
+  }
+  .project .thumb::after{
+    content:""; position:absolute; inset:0;
+    background-image: linear-gradient(45deg, rgba(255,255,255,.06) 25%, transparent 25%),
+                      linear-gradient(-45deg, rgba(255,255,255,.06) 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, rgba(255,255,255,.06) 75%),
+                      linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.06) 75%);
+    background-size: 20px 20px; opacity:.08; pointer-events:none;
+  }
+  .project .body{padding:14px 16px 16px; display:flex; flex-direction:column; gap:10px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chip{
+    font-size:12px; color:#eaf2ff; background:rgba(108,123,255,.18);
+    border:1px solid rgba(108,123,255,.35);
+    padding:6px 8px; border-radius:999px;
+  }
+  .project h3{margin: 4px 0 2px; font-size:18px}
+  .project p{margin:0; color:var(--muted); font-size:14px}
+  .project .meta{margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:10px}
+  .link{color:#cbd5ff; font-weight:700}
+  .link:hover{color:#fff; text-decoration:underline}
+
+  /* Bio */
+  .about{
+    display:grid; grid-template-columns: 1fr 1fr; gap:30px;
+    align-items:start;
+  }
+  .card{
+    background: var(--card); border:1px solid rgba(255,255,255,.08);
+    border-radius:18px; padding:18px; box-shadow: var(--shadow);
+  }
+  .timeline{border-left:2px solid rgba(255,255,255,.12); padding-left:14px; margin:0}
+  .timeline li{margin:14px 0}
+  .timeline .t{font-weight:700}
+  .timeline .d{color:var(--muted); font-size:14px}
+
+  /* Testimonials */
+  .testimonials{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+  .quote{background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow: var(--shadow)}
+  .quote p{margin:0 0 12px; color:#eaf2ff}
+  .quote .who{color:var(--muted); font-size:14px}
+
+  /* Contact */
+  .contact{
+    display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:stretch;
+  }
+  .contact .card a{display:inline-flex; align-items:center; gap:10px; margin:6px 10px 6px 0; color:#eaf2ff}
+  .contact .card a:hover{text-decoration:underline}
+  .social{display:flex; gap:10px; flex-wrap:wrap}
+  .badge{
+    display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08)
+  }
+
+  footer{padding:30px 0; color:var(--muted); text-align:center; border-top:1px solid rgba(255,255,255,.06)}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:800; cursor:pointer;
+    border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color:#eaf2ff;
+  }
+  .btn:hover{background: rgba(255,255,255,.06)}
+  .btn.primary{background: linear-gradient(135deg, var(--primary), #7dd3fc); color:#0a0f1f; border-color: transparent}
+  .btn.ghost{background: transparent}
+  .btn .dot{width:8px;height:8px;border-radius:50%;background:var(--success); box-shadow:0 0 0 4px rgba(34,197,94,.2)}
+
+  /* Accessibility helpers */
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+
+  /* Animations */
+  @keyframes float{0%{transform: translateY(0)}50%{transform: translateY(-6px)}100%{transform: translateY(0)}}
+  @keyframes fadeUp{from{opacity:0; transform: translateY(16px)} to{opacity:1; transform: translateY(0)}}
+  .reveal{opacity:0; transform: translateY(16px); transition: .6s ease}
+  .reveal.visible{opacity:1; transform:translateY(0)}
+
+  /* Responsive */
+  @media (max-width: 1000px){
+    .hero{grid-template-columns: 1fr; gap:24px}
+    .features{grid-template-columns: repeat(2, 1fr)}
+    .projects{grid-template-columns: repeat(2, 1fr)}
+    .about{grid-template-columns: 1fr}
+    .contact{grid-template-columns: 1fr}
+  }
+  @media (max-width: 640px){
+    nav ul{display:none}
+    .features{grid-template-columns: 1fr}
+    .projects{grid-template-columns: 1fr}
+    .testimonials{grid-template-columns: 1fr}
+    .kpis{gap:12px}
+    .kpi{padding:10px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="brand" aria-label="Home">
+      <div class="logo" aria-hidden="true">AM</div>
+      <div>
+        <div>Amir Mishayev</div>
+        <div class="tagline">Full‑Stack Developer</div>
+      </div>
+    </a>
+
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#projects" aria-label="Skip to Projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#about">Bio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <a href="mailto:Amir.Mishayev@gmail.com?subject=Hello%20Amir%20%E2%80%94%20Let's%20connect" class="cta" aria-label="Email Amir">
+      <span class="dot" aria-hidden="true"></span> Available for opportunities
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero container">
+    <div>
+      <h1 class="reveal">Building thoughtful web experiences that scale</h1>
+      <p class="reveal" style="transition-delay:.05s">
+        I’m Amir, a full‑stack engineer focused on delivering robust, accessible applications.
+        I blend strong fundamentals with modern tooling to ship features fast, keep quality high,
+        and turn product ideas into usable, reliable software.
+      </p>
+
+      <div class="kpis">
+        <div class="kpi reveal" style="transition-delay:.1s"><strong>5+ yrs</strong> experience</div>
+        <div class="kpi reveal" style="transition-delay:.15s"><strong>30+ </strong>projects</div>
+        <div class="kpi reveal" style="transition-delay:.2s"><strong>100k+</strong> users served</div>
+      </div>
+
+      <div class="reveal" style="display:flex; gap:12px; transition-delay:.25s">
+        <a href="#projects" class="btn primary" aria-label="View Projects">Explore Projects</a>
+        <a href="#contact" class="btn ghost" aria-label="Get in touch">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" style="transition-delay:.1s" aria-hidden="true">
+      <div class="glow"></div>
+      <pre class="code"><span class="c1">// full‑stack pattern</span>
+<span class="kw">type</span> Stack = {
+  frontend: <span class="str">'React'</span> | <span class="str">'Next.js'</span>,
+  backend:  <span class="str">'Node'</span> | <span class="str">'Express'</span> | <span class="str">'Nest'</span>,
+  db:       <span class="str">'PostgreSQL'</span> | <span class="str">'MongoDB'</span>,
+  cloud:    <span class="str">'AWS'</span> | <span class="str">'Docker'</span>
+}
+
+<span class="kw">const</span> buildPortfolio = (<span class="kw">stack</span>: Stack) => ({
+  <span class="fn">ship</span>: () => <span class="str">'CI/CD • testing • observability'</span>,
+  <span class="fn">scale</span>: () => <span class="str">'caching • queues • horizontal scaling'</span>,
+  <span class="fn">delight</span>: () => <span class="str">'a11y • performance • UX polish'</span>,
+})
+
+<span class="kw">const</span> amir = buildPortfolio({
+  frontend: <span class="str">'React'</span>,
+  backend:  <span class="str">'Node'</span>,
+  db:       <span class="str">'PostgreSQL'</span>,
+  cloud:    <span class="str">'AWS'</span>
+})
+
+<span class="kw">console</span>.log(amir.<span class="fn">ship</span>(), amir.<span class="fn">delight</span>()) <span class="c1">// ✅ shipped, accessible, fast</span></pre>
+    </div>
+  </section>
+
+  <!-- Skills / Highlights -->
+  <section id="skills" class="container">
+    <h2 class="section-title reveal">Skills & Highlights</h2>
+    <p class="section-lead reveal" style="transition-delay:.05s">End‑to‑end product delivery: from clean UI to dependable APIs and cloud ops.</p>
+
+    <div class="features">
+      <div class="feature reveal">
+        <div class="icon" aria-hidden="true">⚛️</div>
+        <div>
+          <h4>Frontend Engineering</h4>
+          <p>React, TypeScript, Next.js, Zustand/Redux, Tailwind, accessibility (WCAG), performance budgets.</p>
+        </div>
+      </div>
+      <div class="feature reveal" style="transition-delay:.05s">
+        <div class="icon" aria-hidden="true">🧩</div>
+        <div>
+          <h4>Backend & APIs</h4>
+          <p>Node.js, Express/Nest, REST/GraphQL, Auth (JWT/OAuth), caching (Redis), messaging & queues.</p>
+        </div>
+      </div>
+      <div class="feature reveal" style="transition-delay:.1s">
+        <div class="icon" aria-hidden="true">🗄️</div>
+        <div>
+          <h4>Data & Storage</h4>
+          <p>PostgreSQL, MongoDB, Prisma/TypeORM, schema design, migrations, observability and tuning.</p>
+        </div>
+      </div>
+      <div class="feature reveal" style="transition-delay:.15s">
+        <div class="icon" aria-hidden="true">☁️</div>
+        <div>
+          <h4>Cloud & DevOps</h4>
+          <p>AWS, Docker, CI/CD (GitHub Actions), infrastructure as code, monitoring, error tracking.</p>
+        </div>
+      </div>
+      <div class="feature reveal" style="transition-delay:.2s">
+        <div class="icon" aria-hidden="true">🧪</div>
+        <div>
+          <h4>Quality Engineering</h4>
+          <p>Jest, React Testing Library, Cypress, contract tests, linting/prettier, code reviews & DX.</p>
+        </div>
+      </div>
+      <div class="feature reveal" style="transition-delay:.25s">
+        <div class="icon" aria-hidden="true">🎯</div>
+        <div>
+          <h4>Product Mindset</h4>
+          <p>Focus on outcomes: usability, accessibility, performance, and measurable business value.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="container">
+    <h2 class="section-title reveal">Selected Projects</h2>
+    <p class="section-lead reveal" style="transition-delay:.05s">A few builds that highlight my approach: pragmatic architecture, clean UX, and measurable impact.</p>
+
+    <div class="projects">
+      <article class="project reveal">
+        <div class="thumb" role="img" aria-label="Recruitment web app preview"></div>
+        <div class="body">
+          <h3>TalentHub — Recruitment Platform</h3>
+          <p>ATS‑style system to manage candidates, pipelines, and feedback with real‑time updates.</p>
+          <div class="chips" aria-label="Technologies">
+            <span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Node/Express</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span>
+          </div>
+          <div class="meta">
+            <span class="chip" style="background:rgba(34,197,94,.18); border-color:rgba(34,197,94,.45)">Hiring cycle −32%</span>
+            <a class="link" href="https://github.com/amir3x0" target="_blank" rel="noopener">Code →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal" style="transition-delay:.05s">
+        <div class="thumb" role="img" aria-label="Portfolio SaaS preview"></div>
+        <div class="body">
+          <h3>Portfol.io — Creator Portfolio SaaS</h3>
+          <p>Generate, host, and manage personal portfolios with live editing and analytics.</p>
+          <div class="chips">
+            <span class="chip">Next.js</span><span class="chip">Prisma</span><span class="chip">Postgres</span><span class="chip">Stripe</span><span class="chip">AWS</span>
+          </div>
+          <div class="meta">
+            <span class="chip" style="background:rgba(245,158,11,.2); border-color:rgba(245,158,11,.45)">TTFB −45%</span>
+            <a class="link" href="https://github.com/amir3x0" target="_blank" rel="noopener">Repo →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal" style="transition-delay:.1s">
+        <div class="thumb" role="img" aria-label="Realtime collaboration app preview"></div>
+        <div class="body">
+          <h3>CollabBoard — Realtime Whiteboard</h3>
+          <p>Multi‑user drawing & notes with presence, cursor sync, and offline support.</p>
+          <div class="chips">
+            <span class="chip">React</span><span class="chip">WebSockets</span><span class="chip">MongoDB</span><span class="chip">Redis</span><span class="chip">Docker</span>
+          </div>
+          <div class="meta">
+            <span class="chip" style="background:rgba(14,165,233,.2); border-color:rgba(14,165,233,.45)">99.95% uptime</span>
+            <a class="link" href="https://github.com/amir3x0" target="_blank" rel="noopener">Details →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="container">
+    <h2 class="section-title reveal">The person behind the code</h2>
+    <p class="section-lead reveal" style="transition-delay:.05s">
+      I enjoy translating real‑world problems into simple software. I care about developer experience,
+      inclusive design, and the small details that make apps feel effortless.
+    </p>
+
+    <div class="about">
+      <div class="card reveal">
+        <h3 style="margin-top:0">Bio</h3>
+        <p>
+          I’m a full‑stack developer with a product mindset. Over the years, I’ve designed and built
+          web applications across recruitment, creator tools, and collaboration spaces. My approach centers
+          on maintainable architecture, delightful interfaces, and robust delivery pipelines.
+        </p>
+        <p>
+          When I’m not shipping features, you’ll find me improving performance metrics, tightening tests,
+          or polishing the UX. I love learning, mentoring, and working closely with design and product.
+        </p>
+      </div>
+      <div class="card reveal" style="transition-delay:.05s">
+        <h3 style="margin-top:0">Journey</h3>
+        <ul class="timeline">
+          <li>
+            <div class="t">Full‑Stack Developer</div>
+            <div class="d">Building modern React/Node applications with TypeScript, testing, and CI/CD.</div>
+          </li>
+          <li>
+            <div class="t">Product‑focused engineer</div>
+            <div class="d">Partnered with design and stakeholders to iterate quickly and measure outcomes.</div>
+          </li>
+          <li>
+            <div class="t">Community & OSS</div>
+            <div class="d">Active on GitHub sharing utilities, patterns, and example projects.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials (Optional Extras) -->
+  <section class="container">
+    <h2 class="section-title reveal">What others say</h2>
+    <div class="testimonials">
+      <div class="quote reveal">
+        <p>“Amir consistently ships high‑quality features and improves our codebase with thoughtful refactors.”</p>
+        <div class="who">— Engineering Lead</div>
+      </div>
+      <div class="quote reveal" style="transition-delay:.05s">
+        <p>“He balances speed and quality. UX feedback, testing, and metrics are always part of the delivery.”</p>
+        <div class="who">— Product Manager</div>
+      </div>
+      <div class="quote reveal" style="transition-delay:.1s">
+        <p>“Collaborative, reliable, and pragmatic. A go‑to engineer for complex front‑to‑back tasks.”</p>
+        <div class="who">— Senior Designer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <h2 class="section-title reveal">Let’s connect</h2>
+    <p class="section-lead reveal" style="transition-delay:.05s">
+      I’m open to full‑time roles and interesting collaborations. Reach out anytime.
+    </p>
+
+    <div class="contact">
+      <div class="card reveal">
+        <h3 style="margin-top:0">Contact details</h3>
+        <div class="social" style="margin:8px 0 6px">
+          <span class="badge" aria-label="Location"><span>📍</span>Israel</span>
+          <span class="badge" aria-label="Timezone"><span>🕒</span>GMT+2</span>
+          <span class="badge" aria-label="Languages"><span>💬</span>English • Hebrew</span>
+        </div>
+
+        <p style="margin:14px 0 10px">Profiles</p>
+        <a href="mailto:Amir.Mishayev@gmail.com" aria-label="Email Amir">
+          ✉️ Email — Amir.Mishayev@gmail.com
+        </a>
+        <a href="tel:+972526880371" aria-label="Call Amir">📞 Tel — +972 52 688 0371</a>
+        <a href="https://github.com/amir3x0" target="_blank" rel="noopener" aria-label="GitHub profile">
+          🐙 GitHub — github.com/amir3x0
+        </a>
+        <a href="https://www.linkedin.com/in/amir-mishayev" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          🔗 LinkedIn — linkedin.com/in/amir-mishayev
+        </a>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn" onclick="window.location.href='#projects'">See my work</button>
+          <a class="btn primary" href="mailto:Amir.Mishayev@gmail.com?subject=Opportunities%20for%20Amir&body=Hi%20Amir%2C" role="button">Start a conversation</a>
+        </div>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.05s">
+        <h3 style="margin-top:0">Quick note</h3>
+        <form onsubmit="event.preventDefault();window.location.href='mailto:Amir.Mishayev@gmail.com?subject=' + encodeURIComponent(this.subject.value||'Hello from your portfolio') + '&body=' + encodeURIComponent(this.message.value||'Hi Amir,');" aria-label="Quick message form">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="Let’s build something great" style="width:100%;margin:6px 0 10px;padding:12px;border-radius:10px;background:#0a1028;border:1px solid rgba(255,255,255,.08);color:#eaf2ff">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Hi Amir, I’d love to chat about…" style="width:100%;margin:6px 0 12px;padding:12px;border-radius:10px;background:#0a1028;border:1px solid rgba(255,255,255,.08);color:#eaf2ff"></textarea>
+          <button type="submit" class="btn" style="width:100%">Open email draft</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    © <span id="y"></span> Amir Mishayev — Crafted with care. <span class="sr-only">End of page</span>
+  </div>
+</footer>
+
+<!-- Small enhancements -->
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  const els = [...document.querySelectorAll('.reveal')];
+  const io = new IntersectionObserver((entries)=>{
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    }
+  }, {threshold:.1});
+  els.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
